@@ -17,6 +17,8 @@ export default function SimResult() {
   const { t, locale } = useT();
   const m = (krw: number) => money(krw, "KRW", locale, { short: true });
   const src = scratch.image ?? houses[1].image;
+  const after = scratch.after;
+  const failed = !after && scratch.afterError;
   const [pos, setPos] = useState(50);
   // ponytail: "after" is a CSS filter on the same photo; replace with a real generation endpoint
   const cells = [
@@ -31,8 +33,8 @@ export default function SimResult() {
       <Section gap={32}>
         <H2 data-reveal>{t.sim.resultTitle}</H2>
         <Media data-reveal style={{ marginTop: 20 }}>
-          <img src={src} alt="" style={{ filter: "grayscale(1) contrast(.85) brightness(.82) sepia(.25)" }} />
-          <img src={src} alt="" style={{ position: "absolute", inset: 0, clipPath: `inset(0 0 0 ${pos}%)`, filter: "saturate(1.2) brightness(1.08) contrast(1.05)" }} />
+          <img src={src} alt="" style={after ? undefined : { filter: "grayscale(1) contrast(.85) brightness(.82) sepia(.25)" }} />
+          <img src={after ?? src} alt="" style={{ position: "absolute", inset: 0, clipPath: `inset(0 0 0 ${pos}%)`, filter: after ? undefined : "saturate(1.2) brightness(1.08) contrast(1.05)" }} />
           <Handle style={{ left: `${pos}%` }} />
           <Badge style={{ position: "absolute", left: 12, top: 12 }}>{t.sim.before}</Badge>
           <Badge style={{ position: "absolute", right: 12, top: 12 }}>{t.sim.after}</Badge>
@@ -40,6 +42,7 @@ export default function SimResult() {
         <div data-reveal>
           <Range type="range" min={0} max={100} value={pos} onChange={(e) => setPos(+e.target.value)} />
           <Caption style={{ marginTop: 6, textAlign: "center" }}>{t.sim.drag}</Caption>
+          {failed && <Caption style={{ marginTop: 4, textAlign: "center", color: T.color.brand }}>{t.sim.genFail}</Caption>}
         </div>
         <Grid2 style={{ marginTop: 28, rowGap: 0, columnGap: 20 }}>
           {cells.map((c) => (

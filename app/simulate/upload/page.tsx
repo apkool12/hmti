@@ -56,7 +56,20 @@ function Camera() {
     setShot(c.toDataURL("image/jpeg", 0.88)); stop();
   };
   const onFile = (f?: File) => { if (f) { setShot(URL.createObjectURL(f)); stop(); } };
-  const analyze = () => { if (!shot) return; scratch.image = shot; setBusy(true); setTimeout(() => router.push("/simulate/result"), 1700); };
+  const [, setErr] = useState(false);
+  // downscale to ≤1280px JPEG so the request stays under the 4.5MB function body limit
+  const shrink = (src: string) => new Promise<string>((res) => { const im = new Image(); im.crossOrigin = "anonymous"; im.onload = () => { const k = Math.min(1, 1280 / Math.max(im.width, im.height)); const c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d")!.drawImage(im, 0, 0, c.width, c.height); res(c.toDataURL("image/jpeg", 0.86)); }; im.onerror = () => res(src); im.src = src; });
+  const analyze = async () => {
+    if (!shot) return; setBusy(true); setErr(false);
+    try {
+      const image = await shrink(shot);
+      scratch.image = image; scratch.after = null; scratch.afterError = null;
+      const r = await fetch("/api/renovate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image }) });
+      const j = await r.json();
+      if (r.ok && j.image) scratch.after = j.image; else { scratch.afterError = String(j.error ?? r.status); setErr(true); }
+    } catch (e) { scratch.afterError = String(e); setErr(true); }
+    router.push("/simulate/result");
+  };
 
   return (
     <Screen>

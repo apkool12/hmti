@@ -71,7 +71,7 @@ const ko = {
     resultTitle: "예상 결과", before: "Before", after: "After",
     cost: "리노베 비용", costSub: "보조금 후", insul: "단열 성능", insulSub: "난방비 -38%", duration: "공사 기간", weeks: "주",
     infra: "인프라", infraSub: "광랜, 상수도, 도시가스",
-    similar: "비슷한 매물 보기", drag: "슬라이더를 움직여 비교해 보세요",
+    similar: "비슷한 매물 보기", drag: "슬라이더를 움직여 비교해 보세요", genFail: "AI 생성에 실패해 예시 미리보기를 보여드려요",
   },
   comm: {
     title: "먼저 온 사람에게 묻기", lead: "이주민과 지역 주민이 한 피드에서 이야기해요.",
@@ -176,7 +176,7 @@ const en: typeof ko = {
     resultTitle: "Expected result.", before: "Before", after: "After",
     cost: "Renovation cost", costSub: "after subsidies", insul: "Insulation", insulSub: "Heating -38%", duration: "Duration", weeks: "weeks",
     infra: "Infrastructure", infraSub: "Fiber · water · gas",
-    similar: "See similar houses", drag: "Drag to compare",
+    similar: "See similar houses", drag: "Drag to compare", genFail: "AI generation failed, showing a sample preview",
   },
   comm: {
     title: "Ask someone who came first.", lead: "Newcomers and locals talk in the same feed.",
@@ -281,7 +281,7 @@ const ja: typeof ko = {
     resultTitle: "予想結果。", before: "Before", after: "After",
     cost: "リノベ費用", costSub: "補助金後", insul: "断熱性能", insulSub: "暖房費 -38%", duration: "工期", weeks: "週",
     infra: "インフラ", infraSub: "光回線 · 上水道 · 都市ガス",
-    similar: "似た物件を見る", drag: "スライダーで比較",
+    similar: "似た物件を見る", drag: "スライダーで比較", genFail: "AI生成に失敗したためサンプルを表示しています",
   },
   comm: {
     title: "先に来た人に聞く。", lead: "移住者と地元の人が同じフィードで話します。",
