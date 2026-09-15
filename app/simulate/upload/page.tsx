@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Icon } from "@/components/ui";
-import { houses, scratch } from "@/lib/data";
+import { houses, savedType, scratch } from "@/lib/data";
 import { useT } from "@/lib/i18n";
 import { theme as T } from "@/lib/theme";
 
@@ -64,7 +64,7 @@ function Camera() {
     try {
       const image = await shrink(shot);
       scratch.image = image; scratch.after = null; scratch.afterError = null;
-      const r = await fetch("/api/renovate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image }) });
+      const r = await fetch("/api/renovate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image, type: savedType() }) });
       const j = await r.json();
       if (r.ok && j.image) scratch.after = j.image; else { scratch.afterError = String(j.error ?? r.status); setErr(true); }
     } catch (e) { scratch.afterError = String(e); setErr(true); }

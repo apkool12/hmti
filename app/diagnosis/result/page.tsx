@@ -3,17 +3,22 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Body, Grid2, H2, H3, Label, Lead, Page, Pill, Small, Stack, TopBar } from "@/components/ui";
 import HouseCard from "@/components/HouseCard";
-import { axisScores, decode, houses, resultPicks, score, typeCode } from "@/lib/data";
+import { axisScores, decode, houses, resultPicks, score, scratch, typeCode } from "@/lib/data";
+import { TYPES } from "@/lib/types";
+import { useEffect } from "react";
 import { useT } from "@/lib/i18n";
 import { theme as T } from "@/lib/theme";
 import { money } from "@/lib/money";
 
 function Result() {
-  const { t, locale } = useT();
+  const { t, L, locale } = useT();
   const a = decode(useSearchParams().get("a")) ?? Array(16).fill(1);
   const p = axisScores(a);
   const k = score(a);
+  const code = typeCode(p);
+  const ty = TYPES[code];
   const r = t.diag.types[k];
+  useEffect(() => { scratch.type = code; try { localStorage.setItem("hmti_type", code); } catch {} }, [code]);
   const m = (krw: number) => money(krw, "KRW", locale, { short: true });
   const cells = [[t.diag.initial, m(32_000_000), false], [t.diag.monthly, m(1_180_000), false], [t.diag.subsidy, "-" + m(17_000_000), true], [t.diag.payback, "2.4y", false]] as const;
   return (
@@ -21,9 +26,11 @@ function Result() {
       <TopBar title="HMTI AI" back="/diagnosis" />
       <div style={{ paddingTop: 32 }}>
         <Label data-reveal>{t.diag.resultType}</Label>
-        <p data-reveal className="num" style={{ margin: "8px 0 0", fontSize: 56, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.02em", color: T.color.brand }}>{typeCode(p)}</p>
-        <H2 data-reveal style={{ marginTop: 10 }}>{r.name}.</H2>
-        <Lead data-reveal style={{ marginTop: 14 }}>{r.desc}</Lead>
+        <p data-reveal className="num" style={{ margin: "8px 0 0", fontSize: 56, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.02em", color: T.color.brand }}>{code}</p>
+        <H2 data-reveal style={{ marginTop: 10 }}>{L(ty.name)}</H2>
+        <Lead data-reveal style={{ marginTop: 14 }}>{L(ty.desc)}</Lead>
+        <p data-reveal style={{ margin: "10px 0 0", fontSize: 13, color: T.color.muted }}>{r.name} · {r.desc}</p>
+        <div data-reveal style={{ marginTop: 20 }}><Pill href="/simulate/upload" full icon="auto_fix_high">{t.diag.renoCta}</Pill></div>
 
         <div data-reveal style={{ marginTop: 32 }}>
           {t.quiz.axes.map(([A, B], i) => (

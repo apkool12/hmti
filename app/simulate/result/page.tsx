@@ -2,7 +2,8 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { Badge, Body, Caption, Grid2, H2, Icon, Label, Media, Page, Pill, Row, Section, Small, TopBar } from "@/components/ui";
-import { houses, scratch } from "@/lib/data";
+import { houses, savedType, scratch } from "@/lib/data";
+import { TYPES } from "@/lib/types";
 import { useT } from "@/lib/i18n";
 import { theme as T } from "@/lib/theme";
 import { money } from "@/lib/money";
@@ -14,11 +15,13 @@ const Range = styled.input`
 const Handle = styled.div`position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; pointer-events: none;`;
 
 export default function SimResult() {
-  const { t, locale } = useT();
+  const { t, L, locale } = useT();
   const m = (krw: number) => money(krw, "KRW", locale, { short: true });
   const src = scratch.image ?? houses[1].image;
   const after = scratch.after;
   const failed = !after && scratch.afterError;
+  const code = savedType();
+  const ty = code ? TYPES[code] : null;
   const [pos, setPos] = useState(50);
   // ponytail: "after" is a CSS filter on the same photo; replace with a real generation endpoint
   const cells = [
@@ -32,6 +35,7 @@ export default function SimResult() {
       <TopBar title={t.nav.simulate} back="/simulate/upload" />
       <Section gap={32}>
         <H2 data-reveal>{t.sim.resultTitle}</H2>
+        {ty && <p data-reveal style={{ margin: "6px 0 0", fontSize: 13, color: T.color.muted }}><span style={{ fontWeight: 700, color: T.color.brand }}>{code}</span> {L(ty.name)} · {t.sim.styleOf}</p>}
         <Media data-reveal style={{ marginTop: 20 }}>
           <img src={src} alt="" style={after ? undefined : { filter: "grayscale(1) contrast(.85) brightness(.82) sepia(.25)" }} />
           <img src={after ?? src} alt="" style={{ position: "absolute", inset: 0, clipPath: `inset(0 0 0 ${pos}%)`, filter: after ? undefined : "saturate(1.2) brightness(1.08) contrast(1.05)" }} />

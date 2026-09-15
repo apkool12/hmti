@@ -1,19 +1,16 @@
 import { NextResponse } from "next/server";
+import { renovationPrompt } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // ponytail: try the cheapest editing model first, fall back if the account lacks access
 const MODELS = ["gemini-3.1-flash-lite-image", "gemini-3.1-flash-image", "gemini-2.5-flash-image"];
-const PROMPT =
-  "Photorealistic renovation of this exact house, as an after photo for a real-estate listing. Keep the same camera angle, framing, building shape, window positions and surroundings. " +
-  "Repaint the exterior walls, replace the roof and windows with clean modern ones, repair anything damaged or overgrown, tidy the garden and path, add soft warm evening light. " +
-  "No text, no people, no watermarks, no added buildings.";
-
 export async function POST(req: Request) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return NextResponse.json({ error: "missing_key" }, { status: 500 });
-  const { image } = (await req.json()) as { image?: string };
+  const { image, type } = (await req.json()) as { image?: string; type?: string };
+  const PROMPT = renovationPrompt(type);
   const m = image?.match(/^data:(image\/[a-z]+);base64,(.+)$/);
   if (!m) return NextResponse.json({ error: "bad_image" }, { status: 400 });
   const [, mime, data] = m;

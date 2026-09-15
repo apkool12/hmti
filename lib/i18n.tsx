@@ -48,7 +48,7 @@ const ko = {
     start: "진단 시작", analyzing: "답변을 분석하고 있어요.",
     resultType: "나의 정착 유형", budget: "예산 시뮬레이션",
     initial: "초기 비용", monthly: "월 생활비", subsidy: "보조금 적용", payback: "회수 기간",
-    picks: "추천 매물", retry: "다시 진단하기",
+    picks: "추천 매물", retry: "다시 진단하기", renoCta: "내 유형으로 리모델링 미리보기",
     q: [
       { q: "주말 아침, 나는?", a: ["텃밭에 나가 흙을 만진다", "카페에서 노트북을 편다"] },
       { q: "이웃과는 어느 정도 거리가 좋나요?", a: ["매일 인사하고 반찬도 나누는", "적당히 인사만 하는"] },
@@ -71,7 +71,7 @@ const ko = {
     resultTitle: "예상 결과", before: "Before", after: "After",
     cost: "리노베 비용", costSub: "보조금 후", insul: "단열 성능", insulSub: "난방비 -38%", duration: "공사 기간", weeks: "주",
     infra: "인프라", infraSub: "광랜, 상수도, 도시가스",
-    similar: "비슷한 매물 보기", drag: "슬라이더를 움직여 비교해 보세요", genFail: "AI 생성에 실패해 예시 미리보기를 보여드려요",
+    similar: "비슷한 매물 보기", drag: "슬라이더를 움직여 비교해 보세요", genFail: "AI 생성에 실패해 예시 미리보기를 보여드려요", styleOf: "유형에 맞춘 리모델링",
   },
   comm: {
     title: "먼저 온 사람에게 묻기", lead: "이주민과 지역 주민이 한 피드에서 이야기해요.",
@@ -153,7 +153,7 @@ const en: typeof ko = {
     start: "Start", analyzing: "Analyzing your answers.",
     resultType: "Your settler type", budget: "Budget simulation",
     initial: "Upfront", monthly: "Monthly", subsidy: "With subsidies", payback: "Payback",
-    picks: "Recommended.", retry: "Try again",
+    picks: "Recommended.", retry: "Try again", renoCta: "Preview a renovation in my style",
     q: [
       { q: "Weekend morning. You are…", a: ["In the garden, hands in the soil", "At a café, laptop open"] },
       { q: "Distance from neighbors?", a: ["Daily hellos and shared meals", "A polite nod is enough"] },
@@ -176,7 +176,7 @@ const en: typeof ko = {
     resultTitle: "Expected result.", before: "Before", after: "After",
     cost: "Renovation cost", costSub: "after subsidies", insul: "Insulation", insulSub: "Heating -38%", duration: "Duration", weeks: "weeks",
     infra: "Infrastructure", infraSub: "Fiber · water · gas",
-    similar: "See similar houses", drag: "Drag to compare", genFail: "AI generation failed, showing a sample preview",
+    similar: "See similar houses", drag: "Drag to compare", genFail: "AI generation failed, showing a sample preview", styleOf: "renovation in your style",
   },
   comm: {
     title: "Ask someone who came first.", lead: "Newcomers and locals talk in the same feed.",
@@ -258,7 +258,7 @@ const ja: typeof ko = {
     start: "診断をはじめる", analyzing: "回答を分析しています。",
     resultType: "あなたの定住タイプ", budget: "予算シミュレーション",
     initial: "初期費用", monthly: "月の生活費", subsidy: "補助金適用", payback: "回収期間",
-    picks: "おすすめ物件。", retry: "もう一度診断",
+    picks: "おすすめ物件。", retry: "もう一度診断", renoCta: "自分のタイプでリノベを見る",
     q: [
       { q: "週末の朝、あなたは？", a: ["畑に出て土に触れる", "カフェでノートPCを開く"] },
       { q: "ご近所との距離感は？", a: ["毎日挨拶しておかずも分け合う", "軽く挨拶する程度"] },
@@ -281,7 +281,7 @@ const ja: typeof ko = {
     resultTitle: "予想結果。", before: "Before", after: "After",
     cost: "リノベ費用", costSub: "補助金後", insul: "断熱性能", insulSub: "暖房費 -38%", duration: "工期", weeks: "週",
     infra: "インフラ", infraSub: "光回線 · 上水道 · 都市ガス",
-    similar: "似た物件を見る", drag: "スライダーで比較", genFail: "AI生成に失敗したためサンプルを表示しています",
+    similar: "似た物件を見る", drag: "スライダーで比較", genFail: "AI生成に失敗したためサンプルを表示しています", styleOf: "タイプに合わせたリノベ",
   },
   comm: {
     title: "先に来た人に聞く。", lead: "移住者と地元の人が同じフィードで話します。",

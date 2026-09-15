@@ -147,4 +147,5 @@ export function decode(s: string | null): number[] | null {
 }
 
 // module-level scratch state that survives client-side navigation (no store needed for a prototype)
-export const scratch: { image: string | null; after: string | null; afterError: string | null; posts: Post[] } = { image: null, after: null, afterError: null, posts };
+export const scratch: { image: string | null; after: string | null; afterError: string | null; type: string | null; posts: Post[] } = { image: null, after: null, afterError: null, type: null, posts };
+export const savedType = () => { try { return scratch.type ?? localStorage.getItem("hmti_type"); } catch { return scratch.type; } };
